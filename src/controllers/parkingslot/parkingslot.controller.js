@@ -99,11 +99,12 @@ export const clearSlot = async (id) => {
 
 export const setMaintenanceMode = async (req, res) => {
   const { id } = JSON.parse(JSON.stringify(req.params));
-  const { maintenanceMode } = req.body;
+  const { underMaintenance } = req.body;
 
   try {
-    console.log('setting maintenance mode to', maintenanceMode);
-    await ParkingSlot.update({ maintenanceMode }, { where: { id } });
+    console.log(`setting maintenance mode of ${id} to ${underMaintenance}`);
+
+    await ParkingSlot.update({ underMaintenance }, { where: { id } });
     return successResponse(req, res, {});
   } catch (error) {
     return errorResponse(req, res, error.message);
